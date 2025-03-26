@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.catfe.contextawaretesting.Const.WATCHED_FILE_DIR_PATH;
+
 
 @Component
 public class Runner {
@@ -21,7 +23,7 @@ public class Runner {
 
     @PostConstruct
     private void testOpenAiApi() throws Exception {
-        String utilsFileAbsPath = "src/main/java/com/catfe/contextawaretesting/Utils/FinancialUtils.java";
+        String utilsFileAbsPath = WATCHED_FILE_DIR_PATH;
         List<MethodMetadata> methodMetadataList = javaCodeParser.parse(utilsFileAbsPath);
         String className = utilsFileAbsPath.substring(utilsFileAbsPath.lastIndexOf("/") + 1, utilsFileAbsPath.indexOf(".java"));
 
