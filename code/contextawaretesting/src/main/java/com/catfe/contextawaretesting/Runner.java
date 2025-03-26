@@ -21,12 +21,11 @@ public class Runner {
 
     @PostConstruct
     private void testOpenAiApi() throws Exception {
-        String utilsFileAbsPath = "/Users/avr/Projects/catfe-404-team-not-found/code/contextawaretesting/src/main/java/com/catfe/contextawaretesting/Utils/FinancialUtils.java";
+        String utilsFileAbsPath = "src/main/java/com/catfe/contextawaretesting/Utils/FinancialUtils.java";
         List<MethodMetadata> methodMetadataList = javaCodeParser.parse(utilsFileAbsPath);
-        String className = utilsFileAbsPath.substring(utilsFileAbsPath.lastIndexOf("/"), utilsFileAbsPath.indexOf(".java") + 1);
+        String className = utilsFileAbsPath.substring(utilsFileAbsPath.lastIndexOf("/") + 1, utilsFileAbsPath.indexOf(".java"));
 
-        ollamaComm.generateTestClass(methodMetadataList, className);
-
-
+        List<String> testClasses = ollamaComm.generateTestClass(methodMetadataList, className);
+        ClassMerger.mergeClasses(testClasses, "com.catfe.contextawaretesting.Utils", className + "Test");
     }
 }
